@@ -14,14 +14,14 @@ Cloud Engineer에게 유용한 북마크
 piki
 └── docs/
     ├── aws/
+    ├── career/
     ├── git/
     ├── hugo/
     ├── kubernetes/
     ├── meme-library/
     ├── programming/
     ├── reading-journal/
-    ├── swiss-army-knife/
-    ├── terraform-lab/
+    ├── terraform/
     └── bookmark.md
 ```
 
