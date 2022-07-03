@@ -20,7 +20,6 @@ piki
     ├── kubernetes/
     ├── meme-library/
     ├── programming/
-    ├── reading-journal/
     ├── terraform/
     └── bookmark.md
 ```
