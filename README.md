@@ -31,6 +31,5 @@ piki
 | dir  | `career/`           | 엔지니어 커리어 고찰       |
 | dir  | `hugo/`             | hugo 블로그 유지보수 가이드 |
 | dir  | `meme-library/`     | DevOps와 Cloud 관련 밈을 모으는 밈계의 알렉산드리아 도서관 |
-| dir  | `reading-journal/`  | 독서노트                |
 | dir  | `terraform/`        | 테라폼 자료              |
 | file | `bookmark.md`       | Cloud Engineer에게 유용한 사이트 모음 |
