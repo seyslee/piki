@@ -217,3 +217,13 @@ kubectl patch application/bgd-app \
   --type=merge \
   -p='{"spec":{"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}'
 ```
+
+ArgoCD 웹페이지에서 Prune과 Self Heal 기능이 활성화되어 있는지 여부를 확인합니다.
+
+![App details button](./3.png)
+
+[APP DETAILS] 버튼을 클릭합니다.
+
+![Prune and self heal](./4.png)
+
+두 기능 다 활성화되어 있습니다.
