@@ -102,14 +102,15 @@ echo $argoPass
 
 ### Deploy application
 
-데모 어플리케이션의 매니페스트를 작성합니다.
+데모 어플리케이션의 매니페스트를 작성합니다.  
+`bgd`는 blue-green deployment의 약자입니다.
 
 ```yaml
 cat << EOF > ./bgd-application.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bgd-app
+  name: bgd-appllication
   namespace: argocd
 spec:
   destination:
