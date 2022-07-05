@@ -6,8 +6,8 @@
 
 ```bash
 aws ec2 describe-security-groups \
---query 'SecurityGroups[].[Tags[?Key==`Name`] | [0].Value, GroupId, Description]' \
---region ap-northeast-2
+  --query 'SecurityGroups[].[Tags[?Key==`Name`] | [0].Value, GroupId, Description]' \
+  --region ap-northeast-2
 ```
 
 &nbsp;
@@ -25,3 +25,5 @@ aws configservice get-compliance-details-by-config-rule \
   --compliance-types NON_COMPLIANT \
   --query 'EvaluationResults[*].EvaluationResultIdentifier.EvaluationResultQualifier.[ResourceType,ResourceId]'
 ```
+
+`NONCOMPLIANT` 상태는 ENI에 연결되지 않은 Security Group을 의미합니다.
