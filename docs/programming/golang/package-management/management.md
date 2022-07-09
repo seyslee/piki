@@ -15,3 +15,5 @@ go
   src/
   pkg/
 ```
+
+표준 Go 프로젝트 레이아웃은 [여기](https://github.com/golang-standards/project-layout/blob/master/README_ko.md)서 확인 가능합니다.

@@ -4,6 +4,8 @@
 
 파이썬의 선 직접 확인하는 방법
 
+## English
+
 ```bash
 $ python3
 >>> import this
@@ -33,7 +35,11 @@ If the implementation is easy to explain, it may be a good idea.
 Namespaces are one honking great idea -- let's do more of those!
 ```
 
+## 한국어
+
 ```bash
+파이썬의 선, 팀 피터 지음
+
 명확한 코드는 암시적인 코드보다 낫다.
 단순한 코드가 복잡한 코드보다 낫다.
 복잡한 코드가 난해한 코드보다 낫다.
@@ -53,3 +59,9 @@ Namespaces are one honking great idea -- let's do more of those!
 쉽게 설명할 수 있는 구현이라면 좋은 아이디어일 것이다.
 네임스페이스는 매우 훌륭한 아이디어이다. -- 많이 사용하자!
 ```
+
+## 인상깊은 구절
+
+- 아름다움이 추한 것보다 낫다.
+- 단순함이 복잡한 것보다 낫다.
+- 가독성은 중요하다.
