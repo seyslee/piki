@@ -3,7 +3,8 @@
 
 ## 개요
 
-Let's Encrypt로 발급받은 SSL 인증서 확인하기
+Let's Encrypt로 발급받은 SSL 인증서 정보를 확인하는 방법을 간단히 소개합니다.  
+nginx 환경 기준으로 작성된 글입니다.
 
 &nbsp;
 
@@ -11,6 +12,7 @@ Let's Encrypt로 발급받은 SSL 인증서 확인하기
 
 - **nginx/1.18.0** (Ubuntu)
 - **OS** : Ubuntu 22.04 LTS
+- **certbot v1.21.0**
 
 &nbsp;
 
@@ -60,6 +62,10 @@ server {
 
 ```
 
+SSL 인증서와 키가 등록되어 있습니다.  
+TCP/443 포트(HTTPS)로 접근시 SSL 인증서를 사용하는 설정입니다.  
+참고로 `# managed by Certbot` 주석에 적혀있는 것처럼 대부분이 Certbot에 의해 자동 등록된 설정입니다.
+
 &nbsp;
 
 ### SSL 인증서 정보 확인
@@ -100,18 +106,49 @@ Ask for help or search for solutions at https://community.letsencrypt.org. See t
 
 ### 자동갱신 설정
 
+Let's Encrypt에서 발급받은 SSL 인증서는 기본 유효기간이 90일입니다.  
+Let's Encrypt 공식문서에서는 SSL 인증서를 2개월(60일) 주기로 갱신하는 걸 권장합니다.
+
 ```bash
-$ crontab -e
+$ certbot --version
+certbot 1.21.0
 ```
 
-매일마다 실행할 `certbot` 명령어를 등록합니다.
+현재 `certbot v1.21.0`을 사용하고 있습니다.
 
 &nbsp;
 
+이미 certbot 설치 과정에서 인증서 갱신 cron job이 `/etc/cron.d/certbot` 파일에 자동 등록됩니다.  
+별도로 관리자가 인증서 갱신 스케줄을 등록할 필요가 없습니다.
+
 ```bash
-0 12 * * * /usr/bin/certbot renew --quiet
+$ cat /etc/cron.d/certbot
+# /etc/cron.d/certbot: crontab entries for the certbot package
+#
+# Upstream recommends attempting renewal twice a day
+#
+# Eventually, this will be an opportunity to validate certificates
+# haven't been revoked, etc.  Renewal will only occur if expiration
+# is within 30 days.
+#
+# Important Note!  This cronjob will NOT be executed if you are
+# running systemd as your init system.  If you are running systemd,
+# the cronjob.timer function takes precedence over this cronjob.  For
+# more details, see the systemd.timer manpage, or use systemctl show
+# certbot.timer.
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+0 */12 * * * root test -x /usr/bin/certbot -a \! -d /run/systemd/system && perl -e 'sleep int(rand(43200))' && certbot -q renew
 ```
 
-위 예제는 매일 정오에 `certbot renew --quiet` 명령을 실행합니다.  
-이 명령어는 서버의 SSL 인증서가 향후 30일 이내에 만료되는지 확인하고 30일 이내에 만료되는 경우 갱신합니다.  
-`--quiet` 옵션은 certbot이 명령어 실행 결과를 출력하지 않도록 지시하는 옵션입니다.
+매일마다 2번, 자정(00:00)과 정오(12:00)에 SSL 인증서 갱신을 시도하는 크론 잡입니다.  
+SSL 인증서의 유효기간이 30일 미만으로 남게 되면 자동으로 갱신 됩니다.  
+유효기간이 30일 이상이면 유효기간 체크만 하고 갱신은 스킵합니다.
+
+&nbsp;
+
+## 참고자료
+
+**인증서 자동 갱신 관련 글**  
+<https://serverfault.com/questions/790772/cron-job-for-lets-encrypt-renewal>
