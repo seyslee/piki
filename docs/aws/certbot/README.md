@@ -112,6 +112,6 @@ $ crontab -e
 0 12 * * * /usr/bin/certbot renew --quiet
 ```
 
-위 예제는 매일 정오에 `certbot renew --quiet` 명령을 실행합니다.
+위 예제는 매일 정오에 `certbot renew --quiet` 명령을 실행합니다.  
 이 명령어는 서버의 SSL 인증서가 향후 30일 이내에 만료되는지 확인하고 30일 이내에 만료되는 경우 갱신합니다.  
 `--quiet` 옵션은 certbot이 명령어 실행 결과를 출력하지 않도록 지시하는 옵션입니다.
