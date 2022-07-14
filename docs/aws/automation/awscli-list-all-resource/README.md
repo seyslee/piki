@@ -12,6 +12,9 @@ AWS CLI가 설치되어 있어야 합니다.
 
 ## 본문
 
+각 서비스별 전체 리소스 조회 명령어입니다.  
+리전과 AWS 프로필은 `aws configure`를 통해 설정한 후 아래 명령어를 실행합니다.  
+
 ### EC2
 
 ```bash
@@ -107,19 +110,22 @@ aws autoscaling describe-launch-configurations \
   --output text | paste -d "\t" - > resources-alc.tsv
 ```
 
-### S3 Name, Last Modified
+### S3 Name, Creation Date
 
 ```bash
 aws s3api list-buckets \
-  --query "Buckets[*].[Name,CreationDate]" \
-  --output text | paste -d "\t" - > resources.tsv
+  --query "Buckets[*].[Name,CreationDate] | sort_by(@, &[1])" \
+  --output text | paste -d "\t" - > resources-s3.tsv
 ```
+
+`sort_by(@, &[1])` : 버킷 생성일(`CreationDate`) 기준으로 오래된 버킷 순으로 출력합니다.
 
 ### S3 Lifecycle
 
 ```bash
-aws s3api get-bucket-lifecycle-configuration --bucket {bucket name} \
-  --output text | paste -d "\t" - > resources.tsv
+aws s3api get-bucket-lifecycle-configuration \
+  --bucket {bucket name} \
+  --output text | paste -d "\t" - > resources-s3-lc.tsv
 ```
 
 ### RDS
