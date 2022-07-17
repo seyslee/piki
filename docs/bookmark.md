@@ -11,3 +11,4 @@ Cloud Engineering에 도움이 되는 유용한 사이트를 모아놓은 페이
 | ✅    | 5  | bejarano             | <https://www.bejarano.io/>           | SRE 테크 블로그     |
 | ✅    | 6  | Cloudest             | <https://cloudest.oopy.io/>          |  Cloud 블로그      |
 | ✅    | 7  | rokrokss             | <https://rokrokss.com/about.html>    | DevOps Tech blog |
+| ✅    | 8  | kube by example      | <https://kubebyexample.com/index.php/en/learning-paths> | kubernetes 무료 학습 사이트 |
