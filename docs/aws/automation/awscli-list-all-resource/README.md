@@ -17,10 +17,35 @@ AWS CLI가 설치되어 있어야 합니다.
 
 ### EC2
 
+#### 예제 1
+
+\`Name\` 부분에서 싱글 쿼트가 아닌 백틱 (\`)을 사용해야 한다는 점을 주의합니다.
+
 ```bash
 aws ec2 describe-instances \
-  --query 'Reservations[*].Instances[*].[Tags[?Key=='Name']|[0].Value,InstanceId,LaunchTime,State.Name,InstanceType,Placement.AvailabilityZone,PublicIpAddress,PlatformDetails,VpcId,SubnetId]' \
+  --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`]|[0].Value,InstanceId,LaunchTime,State.Name,InstanceType,Placement.AvailabilityZone,PublicIpAddress,PlatformDetails,VpcId,SubnetId]' \
   --output text | paste -d "\t" - > resources-ec2.tsv
+```
+
+#### 예제 2
+
+`InUse` 태그의 값이 `enabled`인 EC2 인스턴스만 필터링해서 출력합니다.  
+각 인스턴스의 값은 `Name` 태그, `InUse` 태그, InstanceId, InstanceType 순서로 출력합니다.
+
+```bash
+aws ec2 describe-instances \
+  --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`]|[0].Value, Tags[?Key==`InUse`]|[0].Value, InstanceId, InstanceType]' \
+  --filter "Name=tag:InUse,Values=enabled" \
+  --output text | column -t
+```
+
+아웃풋은 다음과 같이 나옵니다.
+
+```bash
+dev-inst1             enabled  i-0c002aee           t3.medium
+prod-inst1            enabled  i-01234xx56789a1ad4  m5.xlarge
+stage-inst1           enabled  i-0x12345678a88ea3f  t3.large
+...
 ```
 
 ### AMI
